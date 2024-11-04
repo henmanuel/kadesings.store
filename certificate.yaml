@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  AppName:
+    Type: String
+    Default: "example.com"
+    Description: Name of the app in S3 bucket to create
+  Stage:
+    Type: String
+    Default: "dev"
+    Description: Stage to deploy to
+  StackName:
+    Type: String
+    Default: "new-example-app"
+    Description: Name of the stack
+  UseCustomDomain:
+    Description: "Indicates whether to use a custom domain or not."
+    Type: String
+    Default: "no"
+    AllowedValues:
+      - "yes"
+      - "no"
+
+Conditions:
+  CreateCustomDomainResources: !Equals [!Ref UseCustomDomain, "yes"]
+  IsProdStage: !Equals [ !Ref Stage, "prod" ]
+
+Resources:
+  HostedZone:
+    Condition: CreateCustomDomainResources
+    Type: AWS::Route53::HostedZone
+    Properties:
+      Name: !If [IsProdStage, !Ref AppName, !Sub "${Stage}.${AppName}"]
+
+  Certificate:
+    Condition: CreateCustomDomainResources
+    DependsOn: HostedZone
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !If [IsProdStage, !Ref AppName, !Sub "${Stage}.${AppName}"]
+      SubjectAlternativeNames:
+        - !If [IsProdStage, !Sub "*.${AppName}", !Sub "*.${Stage}.${AppName}"]
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: !If [IsProdStage, !Ref AppName, !Sub "${Stage}.${AppName}"]
+          ValidationDomain: !If [IsProdStage, !Ref AppName, !Sub "${Stage}.${AppName}"]
+
+Outputs:
+  CertificateArn:
+    Condition: CreateCustomDomainResources
+    Description: "The ARN of the ACM certificate"
+    Value: !Ref Certificate
+    Export:
+      Name: !Sub "${AWS::StackName}-CertificateArn"
+
+  HostedZoneId:
+    Condition: CreateCustomDomainResources
+    Description: "The ID of the Route53 Hosted Zone"
+    Value: !Ref HostedZone
+    Export:
+      Name: !Sub "${AWS::StackName}-HostedZoneId"

@@ -1,0 +1,105 @@
+.Customer {
+    background-color: #f7f7f7;
+}
+
+.Customer-merchant-add {
+    width: 50%;
+    padding: 5px;
+    display: flex;
+    color: #70b96c;
+    cursor: pointer;
+    max-width: 200px;
+    margin-top: 40px;
+    border-radius: 3%;
+    font-size: 1.5rem;
+    margin-left: 40px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid #dadada;
+}
+
+.Customer-merchant-add-icon {
+    font-size: 4rem !important;
+}
+
+.Customer-merchant-list {
+    width: 100%;
+    padding: 22px;
+    display: flex;
+    flex-flow : wrap;
+    align-items: center;
+}
+
+.Customer-merchant {
+    float: left;
+    border: 18px;
+    display: flex;
+    width: 410px;
+    height: 330px;
+    margin-top: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+    border-radius: 6px;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.Customer-merchant-logo {
+    width: 135px;
+    margin-top: 5px;
+}
+
+.Customer-merchant a {
+    color: #70b96c;
+}
+
+.Customer-merchant-icon {
+    color: #636363;
+    cursor: pointer;
+}
+
+.Customer-merchant-validLevel {
+    width: 100%;
+    display: block;
+}
+
+.Customer-merchant-validLevel-icon {
+    margin: 5px;
+    float: right;
+    cursor: pointer;
+    font-size: 1.5rem !important;
+}
+
+@media screen and (min-width: 601px) {
+    .Customer {
+        background-size: 600px;
+    }
+
+    .Customer-merchant-add {
+        width: 30%;
+    }
+
+    .Customer-merchant-list {
+        width: 100%;
+        display: block;
+        margin-top: 10px;
+    }
+
+    .Customer-merchant {
+        margin-left: 15px;
+    }
+}
+
+@media only screen and (max-width: 580px){
+    .Customer-merchant {
+        width: 300px;
+        height: 300px;
+        margin-left: 15px;
+    }
+}

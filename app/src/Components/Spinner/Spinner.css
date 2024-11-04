@@ -1,0 +1,98 @@
+.spinner {
+  animation: spin 1s infinite linear;
+  border: solid 2vmin transparent;
+  border-radius: 50%;
+  border-right-color: #ec692e;
+  border-top-color: #ec692e;
+  box-sizing: border-box;
+  height: 20vmin;
+  left: calc(50% - 10vmin);
+  position: fixed;
+  top: calc(50% - 10vmin);
+  width: 20vmin;
+  z-index: 1;
+}
+.spinner:before {
+   animation:spin 2s infinite linear;
+   border:solid 2vmin transparent;
+   border-radius:50%;
+   border-right-color: #b65b32;
+   border-top-color: #b65b32;
+   box-sizing:border-box;
+   content:"";
+   height:16vmin;
+   left:0;
+   position:absolute;
+   top:0;
+   width:16vmin;
+}
+.spinner:after {
+   animation:spin 3s infinite linear;
+   border:solid 2vmin transparent;
+   border-radius:50%;
+   border-right-color: #f19971;
+   border-top-color: #f19971;
+   box-sizing:border-box;
+   content:"";
+   height:12vmin;
+   left:2vmin;
+   position:absolute;
+   top:2vmin;
+   width:12vmin;
+ }
+
+@keyframes spin {
+  100% {
+    transform:rotate(360deg);
+  }
+}
+
+.loader-fb {
+    top: calc(50% - 5px);
+    left: calc(50% - 5px);
+    position: absolute !important;
+}
+.loader-fb, .loader-fb:before, .loader-fb:after {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 50px;
+    background-color: rgb(135, 141, 135);
+    border: 1px solid rgb(135, 141, 135);
+    z-index: 100000;
+    content: ' ';
+    margin-left: -5px;
+    margin-right: -7px;
+}
+.loader-fb:before {
+    top: -11px;
+    left: -100%;
+    animation: loading-fb .8s cubic-bezier(.4,.5,.6,1) infinite;
+}
+.loader-fb {
+    animation: loading-fb-main .8s cubic-bezier(.4,.5,.6,1) .2s infinite;
+}
+.loader-fb:after {
+    top: -11px;
+    right: -100%;
+    margin-top: 50%;
+    animation: loading-fb .8s cubic-bezier(.4,.5,.6,1) .4s infinite;
+}
+
+@keyframes loading-fb {
+    from {
+        transform: scaleY(1.4);
+        background-color: rgba(5, 8, 9, 0.55);
+        border: 1px solid rgba(5, 8, 9, 0.55);
+    }
+}
+
+@keyframes loading-fb-main {
+    from {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-top: -10px;
+        background-color: rgba(5, 8, 9, 0.55);
+        border: 1px solid rgba(5, 8, 9, 0.55);
+    }
+}

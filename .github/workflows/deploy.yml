@@ -1,0 +1,51 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - develop
+      - staging
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout deploy
+        uses: actions/checkout@v2
+
+      - name: Execute Building
+        run: |
+          yarn
+          lerna run deploy
+
+      - name: Execute Testing
+        run: |
+          lerna run test   
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Install SAM CLI
+        run: |
+          pip install aws-sam-cli
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.REGION }}
+
+      - name: Setup variables
+        run: |
+          echo "Region=${{ secrets.REGION }}" >> $GITHUB_ENV
+          echo "APPDomain=${{ secrets.APP_DOMAIN }}" >> $GITHUB_ENV
+          echo "CustomDomain=${{ secrets.CUSTOM_DOMAIN }}" >> $GITHUB_ENV
+          echo "Stage=$(echo "${{ github.ref }}" | sed 's#refs/heads/##; s#develop#dev#; s#main#prod#')" >> $GITHUB_ENV
+
+      - name: Execute Sam
+        run: |
+          bash sam.sh $APPDomain $CustomDomain $Region $Stage

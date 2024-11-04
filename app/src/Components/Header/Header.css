@@ -1,0 +1,25 @@
+header {
+  top: 0;
+  z-index: 2;
+  height: 10%;
+  width: 100%;
+  display: flex;
+  color: #8dc491;
+  position: sticky;
+  min-height: 81px;
+  align-items: center;
+  background-color: #ffffff;
+  justify-content: space-between;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.header__logo {
+  height: 70%;
+  cursor: pointer;
+  margin-left: 1%;
+}
+
+.header__login {
+  cursor: pointer;
+  font-size: 3rem !important;
+}

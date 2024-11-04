@@ -1,0 +1,12 @@
+.skeletonHeader{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    height: 81px;
+}
+.skeletonHeader > div > div{
+    height: 57px !important;
+}
+.SkeletonButton{
+    margin-top: 0.7rem;
+}
