@@ -105,4 +105,4 @@ capture_stack_outputs "$StackName"
 sam deploy -t "$TemplateName" --stack-name "$StackName" --s3-bucket "$BucketName" --region "$Region" --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM --parameter-overrides AppName="$APPDomain" Region="$Region" Stage="$Stage" StackName="$StackName" UseCustomDomain="$CustomDomain" CertificateArn="$CERT_ARN" HostedZoneId="$HOSTED_ZONE_ID"
 
 # Sync files to S3
-# aws s3 sync app/dist s3://"${Stage}.${APPDomain}"
+ws s3 sync app/build s3://"${Stage}.${APPDomain}"
